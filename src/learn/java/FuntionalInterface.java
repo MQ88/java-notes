@@ -1,12 +1,14 @@
 package learn.java;
 
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+
+/*** Pending Primitive Streams **/
 public class FuntionalInterface {
 
 
@@ -60,6 +62,66 @@ public class FuntionalInterface {
 
         //Supplier
         log.accept(getRandomNumber.get()+"");
+    }
+
+    public void streamOperations()
+    {
+        /*----Terminal Operation -----
+        -----Long count()
+        ----Optional<T> min ()
+        ----Optional<T> max ()
+        ----boolean anyMatches(Predicate<T>) /noneMatches(Predicate<T>)/AllMatches(Predicate<T>)
+        ----Optional<T> findFirst()/findAny()
+        ---Optional<T> reduce(BinaryOperator<T,T>)
+        ---R collect (Collector)
+        --- void forEach(Consumer<R> )
+         */
+
+        /*------Intermediate operation---
+        ----Stream<R> peek(Consumer<R>)
+        ----Stream<R> map(Funcation<T,R>)
+        ----Stream<T> sorted()/sorted(Comparator<T>)
+        ----skip(n) --> skip first n items
+        ----limit(n) --> limit to n items in stream
+        ----Stream<T> distinct()--> uses equals() method
+        ----stream<R> flatmap(Function <Stream<T>,Stream<R>>)
+        ----Stream<T> filter(Predicate<T> )
+         */
+
+        //square the list of numbers and then filter out the numbers
+        // greater than 100 and then find the
+        // average of the remaining numbers
+
+        OptionalDouble avg=Stream.of(1,2,3,4,55,23,12,8,9)
+                .map(x->x*x)
+                .filter(x->x<100)
+                .mapToInt(x->(Integer)x)
+                .average();
+
+        // find the min and max in stream
+        Stream.of(1,2,3,4,5,5,5,5).mapToInt(Integer::intValue).summaryStatistics();
+        IntSummaryStatistics intfunc = IntStream.range(1,11).summaryStatistics();
+        intfunc.getAverage();
+        intfunc.getCount();
+        intfunc.getMin();
+        intfunc.getSum();
+        intfunc.getMax();
+
+
+        //to find the number of Strings in a list
+        // whose length is greater than 5
+        long greaterThan5chars=Stream.of("Satyesh","Amira","Sunil","Tripathi",
+                "nikhil","Alex")
+                .filter(x->x.length()>5)
+                .count();
+
+        //program to concatenate two Streams?
+        Stream<Integer> s1=Stream.of(1,2,3,4,44,4,2);
+        Stream<Integer> s2=Stream.of(1,2,3,4,44,4,2);
+        Stream.concat(s1,s2).distinct().forEach(System.out::println);
+
+
+
     }
 
     public void testStream()
