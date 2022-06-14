@@ -89,12 +89,6 @@ public class CollectorsLearn {
 
 
         System.out.println("map:"+map.toString());
-
-
-
-
-
-
         System.out.println("TreeSet"+ts.toString());
         System.out.println("Set"+sets.toString());
 
